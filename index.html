@@ -1,131 +1,782 @@
-<!doctype html><html lang="en-us">
-  <head>
-    
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="generator" content="L1nkr theme for Hugo" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steven Adeneye — Data Engineer</title>
+  <meta name="description" content="Data engineer specializing in web scraping, data quality, and ETL pipelines. Python, BeautifulSoup, Scrapy, AWS, Snowflake." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:       #0f1117;
+      --surface:  #161b22;
+      --surface2: #1c2330;
+      --border:   #2a3441;
+      --teal:     #00d4aa;
+      --teal-dim: #00a884;
+      --teal-glow:#00d4aa22;
+      --white:    #e8edf2;
+      --muted:    #7d8fa3;
+      --dim:      #3d4f63;
+      --red:      #ff6b6b;
+      --yellow:   #ffd93d;
+      --green:    #6bcb77;
+    }
 
+    html { scroll-behavior: smooth; }
 
-<title>Jazz Learns Mandarin Blog</title>
-<meta name="title" content="Jazz Learns Mandarin Blog"/>
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--white); text-decoration: none; }
 
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 40%, var(--teal-glow), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+    .hero-bio {
+      max-width: 560px;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.4rem;
+      background: var(--teal);
+      color: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 4px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #00f0c0; text-decoration: none; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.4rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); text-decoration: none; }
 
+    /* ── Terminal ── */
+    .terminal-wrap {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: left;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: var(--red); }
+    .dot-y { background: var(--yellow); }
+    .dot-g { background: var(--green); }
+    .terminal-title {
+      margin-left: auto; margin-right: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .terminal-body {
+      padding: 1.2rem 1.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.9;
+      min-height: 200px;
+    }
+    .t-prompt { color: var(--teal); }
+    .t-cmd    { color: var(--white); }
+    .t-comment{ color: var(--dim); }
+    .t-output { color: var(--muted); }
+    .t-success{ color: var(--green); }
+    .t-num    { color: #79c0ff; }
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: var(--teal);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
+    /* ── Section shared ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+    }
 
+    /* ── Project card ── */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 1px var(--teal-glow), 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .project-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      background: var(--teal-glow);
+      color: var(--teal);
+      border: 1px solid var(--teal-dim);
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .project-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+    .project-links { display: flex; gap: 1rem; }
+    .project-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
 
+    /* ── How it works ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .how-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+      position: relative;
+    }
+    .step-arrow {
+      position: absolute;
+      right: -0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--dim);
+      font-size: 1.2rem;
+      z-index: 1;
+    }
+    .how-step:last-child .step-arrow { display: none; }
+    .step-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .step-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .step-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
 
+    /* ── Code block ── */
+    .code-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+    .code-block-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .code-block pre {
+      padding: 1.2rem 1.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: var(--white);
+    }
+    .kw   { color: #ff7b72; }
+    .fn   { color: #d2a8ff; }
+    .str  { color: #a5d6ff; }
+    .cmt  { color: var(--dim); font-style: italic; }
+    .py-num { color: #79c0ff; }
 
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+    }
+    .skill-group-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
 
+    /* ── Setup section ── */
+    .setup-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .setup-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .setup-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: var(--teal-glow);
+      border: 1px solid var(--teal-dim);
+      border-radius: 3px;
+      padding: 0.1rem 0.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .setup-cmd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--white);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.5rem 0.8rem;
+      flex: 1;
+    }
+    .setup-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
 
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--dim);
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--teal); }
 
+    /* ── Divider ── */
+    .divider { border: none; border-top: 1px solid var(--border); }
 
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.72rem; }
+      section { padding: 3.5rem 1.2rem; }
+      .project-header { flex-direction: column; }
+      .how-grid { grid-template-columns: 1fr; }
+      .step-arrow { display: none; }
+    }
 
-<link
-  type="text/css"
-  rel="stylesheet"
-  href="/leopardmentality/jazzlearnsmandarin.github.io/css/main.bundle.min.0f91fc8741a1e1ac465da507bd1b0e1c05f6b3d5cab1170e62edf85eb9494ee017ec5e821623a76d6f824319dc991d38abc59a64f0cb5d2bfd91195df3742cec.css"
-  integrity="sha512-D5H8h0Gh4axGXaUHvRsOHAX2s9XKsRcOYu34XrlJTuAX7F6CFiOnbW&#43;CQxncmR04q8WaZPDLXSv9kRld83Qs7A=="
-/>
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
 
-
-
-
-
-
-
-<script
-  defer
-  src="/leopardmentality/jazzlearnsmandarin.github.io/ja/main.bundle.min.dd5253fb998de7c3246284f69b898861b0a8f28b277c61634af94182a8ad566c8aaca6688eecf256f397c9777041691486ce6c63eaba4132b2629eaca4a04feb.js"
-  integrity="sha512-3VJT&#43;5mN58MkYoT2m4mIYbCo8osnfGFjSvlBgqitVmyKrKZojuzyVvOXyXdwQWkUhs5sY&#43;q6QTKyYp6spKBP6w=="
-></script>
-
-
-
-
-
-
-<meta property="og:title" content="Jazz Learns Mandarin Blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://github.com/leopardmentality/jazzlearnsmandarin.github.io/" />
-
-
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Jazz Learns Mandarin Blog"/>
-<meta name="twitter:description" content=""/>
-
-
-  </head>
-  <body class="flex h-screen flex-col justify-between bg-neutral-100 dark:bg-neutral-800">
-    <div>
-      <header class="sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800">
-         
-
-<section class="mx-auto flex max-w-screen-xl items-center justify-between p-4">
-  <a href="https://github.com/leopardmentality/jazzlearnsmandarin.github.io/" class="flex items-center space-x-3">
-    
-    <span class="self-center whitespace-nowrap text-2xl font-semibold text-slate-700 dark:text-slate-400">
-      Jazz Learns Mandarin Blog
-    </span>
-  </a>
-  <div>
-    <button id="hamburger-button" class="relative h-8 w-8 cursor-pointer text-3xl md:hidden" aria-label="hamburger-button">
-      <div class="absolute top-4 -mt-0.5 h-[3px] w-8 rounded bg-slate-700 transition-all duration-500 before:absolute before:h-[3px] before:w-8 before:-translate-x-4 before:-translate-y-2.5 before:rounded before:bg-slate-700 before:transition-all before:duration-500 before:content-[''] after:absolute after:h-[3px] after:w-8 after:-translate-x-4 after:translate-y-2.5 after:rounded after:bg-slate-700 after:transition-all after:duration-500 after:content-[''] dark:bg-slate-400 before:dark:bg-slate-400 after:dark:bg-slate-400"></div>
-    </button>
-    <nav class="hidden space-x-8 text-xl md:block" aria-label="main">
-      
-    </nav>
+<!-- ── Nav ── -->
+<nav>
+  <span class="nav-logo">steven@adeneye:~$</span>
+  <div class="nav-links">
+    <a href="#project">project</a>
+    <a href="#skills">skills</a>
+    <a href="#setup">setup</a>
+    <a href="https://www.linkedin.com/in/steven-adeneye/" target="_blank">linkedin</a>
+    <a href="https://github.com/leopardmentality" target="_blank">github</a>
   </div>
-</section>
-<section id="mobile-menu" class="absolute hidden w-full origin-top animate-open-menu flex-col justify-center bg-neutral-100 text-4xl dark:bg-neutral-800">
-  <nav class="flex min-h-screen flex-col items-center py-8" aria-label="mobile">
-    
-  </nav>
-</section>
+</nav>
 
-      </header>
-      <main>
-        
-  <div class="flex flex-col justify-center items-center mt-24 md:mt-48 mb-2">
-    
-    
-    
-    
-    
-          
-    <h1 class="text-4xl text-center font-extrabold text-slate-700 dark:text-slate-200">
-      
-    </h1>
+<!-- ── Hero ── -->
+<section class="hero">
+  <p class="hero-eyebrow">// data engineer · scraper fleet owner</p>
+  <h1 class="hero-name">Steven Adeneye</h1>
+  <p class="hero-role">Python · Web Scraping · Data Quality</p>
+  <p class="hero-bio">
+    I build and maintain production scraper fleets, own data quality end-to-end,
+    and keep pipelines running when things break. BeautifulSoup, Selenium, Scrapy,
+    AWS, Snowflake.
+  </p>
+  <div class="hero-cta">
+    <a href="#project" class="btn-primary">↓ See the project</a>
+    <a href="https://github.com/leopardmentality/jazzlearnsmandarin.github.io" class="btn-secondary" target="_blank">⎇ View repo</a>
+  </div>
 
-    
-    <div class="flex flex-wrap items-center justify-center mt-4">
-      
+  <!-- Terminal animation -->
+  <div class="terminal-wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="terminal-title">book_scraper.py — python3</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div><span class="t-prompt">$ </span><span class="t-cmd" id="typed-cmd"></span><span class="cursor" id="cursor"></span></div>
+        <div id="terminal-output"></div>
+      </div>
     </div>
   </div>
+</section>
 
-      </main>
+<!-- ── Project ── -->
+<section id="project">
+  <div class="section-inner">
+    <p class="section-label">// featured project</p>
+    <h2 class="section-title">Book Scout — Live Scraper + Dashboard</h2>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">📖 book_scraper.py</span>
+        <span class="project-badge">LIVE · books.toscrape.com</span>
+      </div>
+      <p class="project-desc">
+        A Streamlit dashboard that scrapes <strong style="color:var(--white)">books.toscrape.com</strong> in real time —
+        browsing by category, pulling up to 10 pages per run (~200 books), and displaying
+        cover images, prices, and star ratings in a filterable card grid. Demonstrates
+        scraper fleet thinking: polite crawl delays, user-agent headers, paginated navigation,
+        encoding normalization, and clean error surfaces.
+      </p>
+      <div class="project-stack">
+        <span class="tag">Python 3</span>
+        <span class="tag">BeautifulSoup4</span>
+        <span class="tag">Requests</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">CSS selectors</span>
+        <span class="tag">XPath</span>
+        <span class="tag">Pagination</span>
+        <span class="tag">Break/fix</span>
+      </div>
+      <div class="project-links">
+        <a href="book_scraper.py" target="_blank">↗ View source</a>
+        <a href="https://github.com/leopardmentality/jazzlearnsmandarin.github.io" target="_blank">⎇ GitHub repo</a>
+      </div>
     </div>
-    <footer>
-      <div class="flex flex-col justify-center p-10">
-  
-  <p class="text-center text-slate-700 dark:text-slate-400">
-    &copy;
-    2023
-    
-  </p>
 
-  
-  
-  
-  
-  <p class="text-sm text-center text-slate-700 dark:text-slate-400">
-    Published with <a class="hover:underline hover:decoration-indigo-500 hover:text-indigo-500" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> & <a class="hover:underline hover:decoration-indigo-500 hover:text-indigo-500" href="https://github.com/chrede88/qubt" target="_blank" rel="noopener noreferrer">Qubt</a>
-  </p>
-</div>
+    <!-- How it works -->
+    <div style="margin-top:2.5rem">
+      <p class="section-label">// how it works</p>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="step-icon">🔍</div>
+          <div class="step-name">Discover</div>
+          <div class="step-desc">Fetches category nav from the homepage, builds a dynamic dropdown</div>
+          <span class="step-arrow">→</span>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">🕷️</div>
+          <div class="step-name">Scrape</div>
+          <div class="step-desc">Walks paginated listing pages with BeautifulSoup, 300ms polite delay</div>
+          <span class="step-arrow">→</span>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">🧹</div>
+          <div class="step-name">Normalize</div>
+          <div class="step-desc">Fixes encoding artifacts, resolves relative URLs, maps star-rating words to ints</div>
+          <span class="step-arrow">→</span>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">📊</div>
+          <div class="step-name">Display</div>
+          <div class="step-desc">Card grid with filters, sort, and a metric strip — all reactive via session state</div>
+        </div>
+      </div>
 
-    </footer>
-  </body>
+      <!-- Code snippet -->
+      <div class="code-block">
+        <div class="code-block-bar">
+          <span>book_scraper.py — core scrape loop</span>
+          <span>python</span>
+        </div>
+        <pre><span class="kw">def</span> <span class="fn">scrape_page</span>(url: str) -&gt; tuple[list[dict], str | None]:
+    r = requests.<span class="fn">get</span>(url, headers=HEADERS, timeout=<span class="py-num">10</span>)
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, <span class="str">"html.parser"</span>)
+
+    books = []
+    <span class="kw">for</span> art <span class="kw">in</span> soup.<span class="fn">select</span>(<span class="str">"article.product_pod"</span>):
+        title       = art.h3.a[<span class="str">"title"</span>]
+        price       = art.<span class="fn">select_one</span>(<span class="str">"p.price_color"</span>).text.strip()
+        rating_word = art.p[<span class="str">"class"</span>][<span class="py-num">1</span>]          <span class="cmt"># e.g. "Three"</span>
+        stars       = RATING_MAP.get(rating_word, <span class="py-num">0</span>)
+        img_url     = <span class="fn">resolve_img</span>(art.img[<span class="str">"src"</span>])
+        link        = <span class="fn">resolve_link</span>(art.h3.a[<span class="str">"href"</span>])
+        books.<span class="fn">append</span>({<span class="str">"title"</span>: title, <span class="str">"price"</span>: price,
+                       <span class="str">"stars"</span>: stars, <span class="str">"img_url"</span>: img_url, <span class="str">"link"</span>: link})
+
+    next_btn = soup.<span class="fn">select_one</span>(<span class="str">"li.next a"</span>)
+    next_url = <span class="fn">resolve_next</span>(url, next_btn[<span class="str">"href"</span>]) <span class="kw">if</span> next_btn <span class="kw">else</span> <span class="kw">None</span>
+    <span class="kw">return</span> books, next_url</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">// technical skills</p>
+    <h2 class="section-title">Stack</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-label">Web Scraping</div>
+        <div class="skill-list">
+          <span class="tag">BeautifulSoup</span><span class="tag">Selenium</span>
+          <span class="tag">Playwright</span><span class="tag">Scrapy</span>
+          <span class="tag">Requests</span><span class="tag">lxml</span>
+          <span class="tag">XPath</span><span class="tag">CSS selectors</span>
+          <span class="tag">Proxy rotation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-list">
+          <span class="tag">Python</span><span class="tag">JavaScript</span>
+          <span class="tag">SQL</span><span class="tag">C#</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Data Quality & Pipelines</div>
+        <div class="skill-list">
+          <span class="tag">Airflow</span><span class="tag">Kafka</span>
+          <span class="tag">Jenkins</span><span class="tag">CI/CD</span>
+          <span class="tag">Data validation</span><span class="tag">Root cause analysis</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Cloud & Warehousing</div>
+        <div class="skill-list">
+          <span class="tag">AWS S3</span><span class="tag">AWS Redshift</span>
+          <span class="tag">Snowflake</span><span class="tag">Azure</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Visualization</div>
+        <div class="skill-list">
+          <span class="tag">Streamlit</span><span class="tag">Looker</span>
+          <span class="tag">Power BI</span><span class="tag">Tableau</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Setup ── -->
+<section id="setup">
+  <div class="section-inner">
+    <p class="section-label">// run it yourself</p>
+    <h2 class="section-title">Setup</h2>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1rem;">
+      Runs locally in under a minute. Python 3.9+ required.
+    </p>
+    <div class="setup-steps">
+      <div class="setup-step">
+        <span class="setup-num">1</span>
+        <div>
+          <div class="setup-cmd">git clone https://github.com/leopardmentality/jazzlearnsmandarin.github.io.git</div>
+          <div class="setup-note">Clone the repo</div>
+        </div>
+      </div>
+      <div class="setup-step">
+        <span class="setup-num">2</span>
+        <div>
+          <div class="setup-cmd">pip install streamlit beautifulsoup4 requests</div>
+          <div class="setup-note">Install dependencies</div>
+        </div>
+      </div>
+      <div class="setup-step">
+        <span class="setup-num">3</span>
+        <div>
+          <div class="setup-cmd">streamlit run book_scraper.py</div>
+          <div class="setup-note">Opens at localhost:8501 — pick a category, set page count, hit Scrape</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <p>
+    Steven Adeneye &nbsp;·&nbsp;
+    <a href="mailto:solvedbysteve@gmail.com">solvedbysteve@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/steven-adeneye/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://solvedbysteve.github.io/" target="_blank">Portfolio</a>
+  </p>
+</footer>
+
+<!-- ── Terminal animation ── -->
+<script>
+  const lines = [
+    { type: 'cmd',     text: 'python3 book_scraper.py' },
+    { type: 'output',  text: '' },
+    { type: 'comment', text: '# Fetching categories from books.toscrape.com...' },
+    { type: 'output',  text: '✓  Found 50 categories' },
+    { type: 'output',  text: '' },
+    { type: 'comment', text: '# Scraping Mystery · page 1 of 3...' },
+    { type: 'output',  text: '  [████████████████████] 20 books' },
+    { type: 'comment', text: '# Scraping Mystery · page 2 of 3...' },
+    { type: 'output',  text: '  [████████████████████] 20 books' },
+    { type: 'comment', text: '# Scraping Mystery · page 3 of 3...' },
+    { type: 'output',  text: '  [████████████████████] 11 books' },
+    { type: 'output',  text: '' },
+    { type: 'success', text: '✓  Scraped 51 books in 1.4s  ·  avg £12.34  ·  avg ★ 3.6' },
+    { type: 'output',  text: '   Dashboard running at http://localhost:8501' },
+  ];
+
+  const cmdEl    = document.getElementById('typed-cmd');
+  const outputEl = document.getElementById('terminal-output');
+  const cursor   = document.getElementById('cursor');
+
+  const colorClass = { cmd: 't-cmd', output: 't-output', comment: 't-comment', success: 't-success' };
+
+  async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function typeCmd(text) {
+    cursor.style.display = 'inline-block';
+    for (const ch of text) {
+      cmdEl.textContent += ch;
+      await sleep(38 + Math.random() * 30);
+    }
+    await sleep(300);
+    cursor.style.display = 'none';
+  }
+
+  function addLine(type, text) {
+    const d = document.createElement('div');
+    d.className = colorClass[type] || 't-output';
+    d.textContent = text;
+    outputEl.appendChild(d);
+  }
+
+  async function runAnimation() {
+    const [cmdLine, ...rest] = lines;
+    await sleep(600);
+    await typeCmd(cmdLine.text);
+    await sleep(200);
+    for (const line of rest) {
+      await sleep(line.type === 'output' && line.text === '' ? 80 : 260);
+      addLine(line.type, line.text);
+    }
+    // restart after a pause
+    await sleep(5000);
+    cmdEl.textContent = '';
+    outputEl.innerHTML = '';
+    runAnimation();
+  }
+
+  // Only animate if not reduced motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    runAnimation();
+  } else {
+    cmdEl.textContent = 'streamlit run book_scraper.py';
+    addLine('success', '✓  Scraped 51 books · avg £12.34 · avg ★ 3.6');
+  }
+</script>
+
+</body>
 </html>
